@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Trilateración Interactiva Neón</title>
+
+<style>
+    body {
+        background: #1b1b1b;
+        color: hsl(0, 0%, 100%);
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        color: rgb(192, 255, 255);
+        margin-bottom: 20px;
+    }
+
+    .panel {
+        width: 92%;
+        max-width: 900px;
+        margin: auto;
+        padding: 20px;
+        border: 2px solid #0ff;
+        border-radius: 12px;
+        background: #0e0e0e;
+        box-shadow: 0 0 5px rgb(84, 255, 255);
+    }
+
+    canvas {
+        background: #080808;
+        border: 2px solid rgb(228, 255, 255);
+        display: block;
+        margin: 25px auto;
+        border-radius: 10px;
+        box-shadow: 0 0 7px rgb(43, 255, 107);
+        cursor: pointer;
+    }
+
+    input {
+        width: 90px;
+        padding: 6px;
+        background: #000;
+        border: 2px solid rgb(255, 255, 255);
+        color: rgb(255, 255, 255);
+        border-radius: 6px;
+        margin: 5px;
+    }
+
+    button {
+        padding: 10px 20px;
+        background: #000;
+        border: 2px solid rgb(255, 255, 255);
+        color: rgb(255, 255, 255);
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 18px;
+        margin-top: 10px;
+    }
+
+    button:hover {
+        background: rgb(8, 8, 8);
+        color: rgb(219, 219, 219);
+        border: 2px solid rgb(185, 185, 185);
+    }
+
+    .inter{
+        text-align: center;
+        margin-top: 20px;
+    }
+    .contenedor {
+    display: flex;           /* Coloca elementos a un lado del otro */
+    align-items: center;     /* Alineación vertical */
+    gap: 20px;               /* Espacio entre imagen y texto */
+}
+
+.contenedor img {
+    width: 200px;            /* Tamaño de la imagen */
+    border-radius: 10px;     /* Decoración opcional */
+}
+
+.texto {
+    max-width: 500px;        /* Para que no se haga muy ancho */
+}
+.lista {
+    list-style: disc;
+    padding-left: 20px;   /* espacio para la bolita */
+  }
+
+  .lista li {
+    margin-bottom: 12px;
+  }
+
+  .titulo {
+    font-weight: bold;    /* ejemplo: "Primero:" */
+  }
+
+  .descripcion {
+    margin: 4px 0 0 20px; /* texto alineado debajo */
+  }
+</style>
+
+</head>
+<body>
+
+
+
+<div class="panel">
+    
+    <h1>Trilateración</h1> <br>
+
+    <p>
+        La trilateración es un método matemático para determinar las posiciones relativas de objetos usando la geometría de triángulos de forma análoga a la triangulación. A diferencia de esta, que usa medidas de ángulo (junto con al menos una distancia conocida para calcular la localización del sujeto), la trilateración usa las localizaciones conocidas de dos o más puntos de referencia, y la distancia medida entre el sujeto y cada punto de referencia. Para determinar de forma única y precisa la localización relativa de un punto en un plano bidimensional usando solo trilateración, se necesitan generalmente al menos 3 puntos de referencia.
+        <br><br> 
+        <div class="contenedor">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Trilateration.svg/960px-Trilateration.svg.png" alt="Descripción">
+
+    <div class="texto">
+        <h2>Ejemplo</h2>
+        <p>
+            Estando en B, queremos conocer su posición relativa a los puntos de referencia P1, P2, y P3 en un plano bidimensional. Al medir r1 se reduce nuestra posición a una circunferencia. A continuación, midiendo r2, la reducimos a dos puntos, A y B. Una tercera medición, r3, nos devuelve nuestras coordenadas en B. Una cuarta medición también puede hacerse para reducir y estimar el error.
+        </p>
+    </div>
+</div><br>
+
+<span class="titulo">El proceso de trilateración se puede resumir así:</span>
+<ul class="lista">
+  <li>
+    <span class="titulo">Puntos de referencia:</span>
+    <p class="descripcion">Se eligen tres puntos de referencia con coordenadas conocidas.</p>
+  </li>
+  <li>
+    <span class="titulo">Medición de distancias:</span>
+    <p class="descripcion">Se mide la distancia entre el punto desconocido y cada uno de los tres puntos de referencia.</p>
+  </li>
+  <li>
+    <span class="titulo">Solución geométrica:</span>
+    <p class="descripcion">Se utiliza la geometría para encontrar la posición del punto desconocido, que será el punto de intersección de tres esferas con los puntos de referencia como centros y las distancias medidas como radios.</p>
+  </li>
+</ul>
+<span class="titulo">Ventajas de la trilateración: </span>
+<ul>
+  
+  <li>
+    <span class="titulo">Precisión:</span>
+    <p class="descripcion">La trilateración puede ser muy precisa, especialmente cuando las distancias a los puntos de referencia son grandes y los puntos están bien distribuidos.</p>
+  </li>
+  <li>
+    <span class="titulo">Facilidad de uso:</span>
+    <p class="descripcion">La trilateración es relativamente fácil de implementar, ya que solo se necesita medir distancias, no ángulos.</p>
+  </li>
+  <li>
+    <span class="titulo">Aplicaciones: </span>
+    <p class="descripcion">Se utiliza en una variedad de aplicaciones, como GPS, sistemas de posicionamiento en interiores y topografía.</p>
+  </li>
+</ul>
+<span class="titulo">Comparación con la triangulación:</span>
+<ul>
+  <li>
+    <span class="titulo">Triangulación:</span>
+    <p class="descripcion">Se basa en la medición de ángulos y distancias para determinar la posición de un punto. La triangulación es útil cuando se tienen puntos de referencia bien distribuidos y se pueden medir ángulos precisos. </p>
+  </li>
+  <li>
+    <span class="titulo">Trilateración:</span>
+    <p class="descripcion">Se basa en la medición de distancias a tres puntos de referencia. La trilateración es más precisa cuando las distancias son grandes y los puntos de referencia están bien distribuidos.</p>
+  </li>
+
+</ul>       
+<br>En resumen, la trilateración es una técnica topográfica que utiliza distancias para determinar la posición de un punto desconocido, siendo una alternativa a la triangulación en situaciones donde se pueden medir distancias con precisión. 
+<br><br>
+        La trilateración permite encontrar un punto desconocido usando distancias hacia tres puntos 
+        conocidos. Es exactamente como funciona el GPS.
+    </p>
+    <p>
+        Esta página te permite entender la trilateración moviendo libremente los puntos A, B, C y el punto objetivo. Cada movimiento recalcula distancias y te muestra cómo funciona el concepto en tiempo real. <br>
+        Para ver cómo cambian las distancias, arrastra los puntos: <br> <br> <b>A (azul)</b><br> <b>B (verde)</b><br> <b>C (lila) <br></b> <b>P (amarillo)</b>
+    </p><br><br>
+    
+    <canvas id="plano" width="500" height="500"></canvas>
+
+    <div class="inter">
+    <div>
+        <b>A:</b>
+        X <input id="Ax" type="number" value="100">
+        Y <input id="Ay" type="number" value="120">
+    </div>
+
+    <div>
+        <b>B:</b>
+        X <input id="Bx" type="number" value="400">
+        Y <input id="By" type="number" value="150">
+    </div>
+
+    <div>
+        <b>C:</b>
+        X <input id="Cx" type="number" value="230">
+        Y <input id="Cy" type="number" value="400">
+    </div>
+
+    <div style="margin-top:10px;">
+        <b>P (calculado):</b>
+        X <input id="Px" type="number" value="250" readonly>
+        Y <input id="Py" type="number" value="260" readonly>
+    </div>
+
+    <button onclick="calcularTrilateracion()">Calcular P</button>
+</div>
+</div>
+<script>
+    const canvas = document.getElementById("plano");
+    const ctx = canvas.getContext("2d");
+
+    const puntos = {
+        A: { x: 100, y: 120, color: "#0ff" },
+        B: { x: 400, y: 150, color: "#0f0" },
+        C: { x: 230, y: 400, color: "#f0f" },
+        P: { x: 250, y: 260, color: "#ff0" }
+    };
+
+    let seleccionado = null;
+
+    function distancia(p1, p2) {
+        return Math.hypot(p1.x - p2.x, p1.y - p2.y);
+    }
+
+    function dibujar() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ["A","B","C"].forEach(n => {
+            const d = distancia(puntos[n], puntos.P);
+            ctx.beginPath();
+            ctx.arc(puntos[n].x, puntos[n].y, d, 0, Math.PI * 2);
+            ctx.strokeStyle = puntos[n].color;
+            ctx.lineWidth = 1.2;
+            ctx.stroke();
+        });
+
+        for (let n in puntos) {
+            const p = puntos[n];
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, 10, 0, Math.PI * 2);
+            ctx.fillStyle = p.color;
+            ctx.fill();
+            ctx.fillText(n, p.x + 12, p.y + 5);
+        }
+
+        // actualizar inputs al mover puntos
+        Ax.value = puntos.A.x;
+        Ay.value = puntos.A.y;
+        Bx.value = puntos.B.x;
+        By.value = puntos.B.y;
+        Cx.value = puntos.C.x;
+        Cy.value = puntos.C.y;
+        Px.value = puntos.P.x;
+        Py.value = puntos.P.y;
+    }
+
+    canvas.onmousedown = e => {
+        const r = canvas.getBoundingClientRect();
+        const x = e.clientX - r.left, y = e.clientY - r.top;
+        for (let n in puntos) {
+            if (distancia({x,y}, puntos[n]) < 15) seleccionado = n;
+        }
+    };
+
+    canvas.onmousemove = e => {
+        if (!seleccionado) return;
+        const r = canvas.getBoundingClientRect();
+        puntos[seleccionado].x = e.clientX - r.left;
+        puntos[seleccionado].y = e.clientY - r.top;
+        dibujar();
+    };
+
+    canvas.onmouseup = () => seleccionado = null;
+
+    // --------------------------------------
+    // CÁLCULO DE TRILATERACIÓN AUTOMÁTICA
+    // --------------------------------------
+    function calcularTrilateracion() {
+        puntos.A.x = parseFloat(Ax.value);
+        puntos.A.y = parseFloat(Ay.value);
+        puntos.B.x = parseFloat(Bx.value);
+        puntos.B.y = parseFloat(By.value);
+        puntos.C.x = parseFloat(Cx.value);
+        puntos.C.y = parseFloat(Cy.value);
+
+        const dA = distancia(puntos.A, puntos.P);
+        const dB = distancia(puntos.B, puntos.P);
+        const dC = distancia(puntos.C, puntos.P);
+
+        const x1 = puntos.A.x, y1 = puntos.A.y;
+        const x2 = puntos.B.x, y2 = puntos.B.y;
+        const x3 = puntos.C.x, y3 = puntos.C.y;
+
+        const A1 = 2*(x2 - x1);
+        const B1 = 2*(y2 - y1);
+        const C1 = dA*dA - dB*dB - x1*x1 + x2*x2 - y1*y1 + y2*y2;
+
+        const A2 = 2*(x3 - x1);
+        const B2 = 2*(y3 - y1);
+        const C2 = dA*dA - dC*dC - x1*x1 + x3*x3 - y1*y1 + y3*y3;
+
+        const det = A1*B2 - A2*B1;
+        if (Math.abs(det) < 0.0001) {
+            alert("Los puntos están alineados.");
+            return;
+        }
+
+        puntos.P.x = (C1*B2 - C2*B1) / det;
+        puntos.P.y = (A1*C2 - A2*C1) / det;
+
+        Px.value = puntos.P.x;
+        Py.value = puntos.P.y;
+
+        dibujar();
+    }
+
+    dibujar();
+</script>
+
+</body>
+</html>
